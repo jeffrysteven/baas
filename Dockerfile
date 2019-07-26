@@ -3,6 +3,7 @@ LABEL maintainer="@jeffry_steven"
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
 COPY package.json .
+RUN npm config set unsafe-perm true
 RUN npm install --quiet
 RUN npm install nodemon -g --quiet
 COPY . .

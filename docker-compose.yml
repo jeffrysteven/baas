@@ -1,0 +1,45 @@
+version: '3.3'
+
+services:
+  db:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+  api:
+    depends_on:
+      - db
+    image: parseplatform/parse-server
+    restart: always
+    ports:
+      - 1337:1337
+    environment:
+      - PARSE_SERVER_APPLICATION_ID=app
+      - PARSE_SERVER_MASTER_KEY=appkey
+      - PARSE_SERVER_DATABASE_URI=mongodb://db/app
+  dashboard:
+    depends_on:
+      - api
+    image: parseplatform/parse-dashboard
+    restart: always
+    ports:
+      - 4040:4040
+    environment:
+      - PARSE_DASHBOARD_SERVER_URL=http://localhost:1337/parse
+      - PARSE_DASHBOARD_APP_ID=app
+      - PARSE_DASHBOARD_MASTER_KEY=appkey
+      - PARSE_DASHBOARD_APP_NAME=ngrx
+      - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=1
+      - PARSE_DASHBOARD_USER_ID=user
+      - PARSE_DASHBOARD_USER_PASSWORD=pass
+  gateway:
+    build: .
+    depends_on:
+      - api
+    ports:
+      - 80:80
+    environment:
+      - PARSE_SERVER_URL=http://api:1337/parse
+    volumes:
+      - .:/opt/app
+      - /opt/app/node_modules

@@ -1,0 +1,16 @@
+{
+  "name": "hapi-gateway",
+  "version": "1.0.0",
+  "description": "gateway for parse-server",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@jeffry_steven",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^18.3.1",
+    "parse": "^2.5.1"
+  }
+}

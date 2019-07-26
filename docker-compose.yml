@@ -25,7 +25,7 @@ services:
     ports:
       - 4040:4040
     environment:
-      - PARSE_DASHBOARD_SERVER_URL=http://localhost:1337/parse
+      - PARSE_DASHBOARD_SERVER_URL=http://api:1337/parse
       - PARSE_DASHBOARD_APP_ID=app
       - PARSE_DASHBOARD_MASTER_KEY=appkey
       - PARSE_DASHBOARD_APP_NAME=ngrx

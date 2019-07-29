@@ -25,6 +25,27 @@ module.exports = apiServer => {
           case 'post':
             return await new parseEntity(payload).save();
             break;
+          case 'put':
+            if (id) {
+              const query = new apiServer.Query(parseEntity);
+              return await query.get(id).then(obj => {
+                obj.set(payload);
+                return obj.save();
+              });
+            } else {
+              return 'Ups! :)';
+            }
+            break;
+          case 'delete':
+            if (id) {
+              const query = new apiServer.Query(parseEntity);
+              return await query.get(id).then(obj => {
+                return obj.destroy();
+              });
+            } else {
+              return 'Ups! :)';
+            }
+            break;
           default:
             return 'Ups! :)';
             break;
